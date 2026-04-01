@@ -1,10 +1,16 @@
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
 
-FROM icr.io/appcafe/open-liberty:kernel-slim-java21-openj9-ubi-minimal
+COPY pom.xml .
+COPY src ./src
 
-COPY --chown=1001:0 /src/main/liberty/config /config
+RUN mvn clean package -DskipTests
 
-RUN features.sh
+FROM eclipse-temurin:17-jre
+WORKDIR /app
 
-COPY --chown=1001:0 target/*.war /config/apps
+COPY --from=build /app/target/*.jar app.jar
 
-RUN configure.sh
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
