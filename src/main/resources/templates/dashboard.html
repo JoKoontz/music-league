@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Dashboard</h1>
+
+    <p>You are logged in!</p>
+
+    <a th:href="@{/leagues/create}">Create League</a><br>
+    <a th:href="@{/leagues/join}">Join League</a><br><br>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
