@@ -1,0 +1,174 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #020024 0%, #9F52B2 100%);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    background: #E7F0B1;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+h1 {
+    color: #667eea;
+    text-align: center;
+    margin-top: 0;
+}
+
+.status-message {
+    text-align: center;
+    font-size: 18px;
+    color: #746;
+    margin-bottom: 30px;
+}
+
+.timer-container {
+    background: #f0f0f0;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.timer {
+    font-size: 48px;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.points-display {
+    font-size: 24px;
+    color: #764ba2;
+}
+
+.audio-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.play-button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.play-button:hover {
+    background: #764ba2;
+    transform: scale(1.05);
+}
+
+.play-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: scale(1);
+}
+
+.guess-section {
+    margin-bottom: 30px;
+}
+
+.guess-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.guess-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.submit-button {
+    width: 100%;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-button:hover {
+    background: #218838;
+}
+
+.submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.feedback {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    display: none;
+}
+
+.feedback.correct {
+    background: #d4edda;
+    color: #155724;
+    display: block;
+}
+
+.feedback.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+    display: block;
+}
+
+.leaderboard {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #eee;
+}
+
+.leaderboard h2 {
+    color: #020024;
+    text-align: center;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: #f8f9fa;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.leaderboard-item.first {
+    background: #ffd700;
+    font-weight: bold;
+}
+
+.leaderboard-item.second {
+    background: #c0c0c0;
+}
+
+.leaderboard-item.third {
+    background: #cd7f32;
+}

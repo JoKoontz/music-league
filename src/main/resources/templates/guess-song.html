@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music League - Guess The Song</title>
+    <link rel="stylesheet" th:href="@{/css/guess-song.css}">
+</head>
+<body>
+    <div class="game-container">
+        <h1>🎵 Music League - Guess The Song</h1>
+        <div class="status-message" id="statusMessage">Press "Ready to Play" to start!</div>
+
+        <div class="timer-container">
+            <div class="timer" id="timer">100</div>
+            <div class="points-display">Points Available</div>
+        </div>
+
+        <div class="audio-section">
+            <button class="play-button" id="playButton" onclick="startGame()">Ready to Play</button>
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <div class="guess-section" id="guessSection" style="display: none;">
+            <input
+                type="text"
+                class="guess-input"
+                id="guessInput"
+                placeholder="Type the song name here..."
+                onkeypress="if(event.key==='Enter') submitGuess()"
+            >
+            <button class="submit-button" onclick="submitGuess()">Submit Guess</button>
+        </div>
+
+        <div class="leaderboard">
+            <h2>🏆 Current Leaderboard</h2>
+            <div class="leaderboard-item first">
+                <span>1. Player1</span>
+                <span>450 pts</span>
+            </div>
+            <div class="leaderboard-item second">
+                <span>2. Player2</span>
+                <span>380 pts</span>
+            </div>
+            <div class="leaderboard-item third">
+                <span>3. Player3</span>
+                <span>320 pts</span>
+            </div>
+            <div class="leaderboard-item">
+                <span>4. You</span>
+                <span id="yourScore">0 pts</span>
+            </div>
+            <div class="leaderboard-item">
+                <span>5. Player5</span>
+                <span>150 pts</span>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/guess-song.js}"></script>
+</body>
+</html>
