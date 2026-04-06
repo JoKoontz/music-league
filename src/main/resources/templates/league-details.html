@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>League Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${league.name}">League Name</h1>
+
+    <div class="card">
+        <p><strong>Invite Code:</strong> <span th:text="${league.inviteCode}"></span></p>
+        <p><strong>Owner:</strong> <span th:text="${league.owner.username}"></span></p>
+    </div>
+
+    <h2>Members</h2>
+    <div th:each="member : ${members}" class="card">
+        <p>
+            <strong th:text="${member.user.username}">Username</strong>
+            - Points: <span th:text="${member.totalPoints}">0</span>
+        </p>
+    </div>
+
+    <div class="nav">
+        <a th:href="@{/rounds/create/{leagueId}(leagueId=${league.id})}">Create Round</a>
+        <a th:href="@{/dashboard}">Back to Dashboard</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create League</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Create League</h2>
+
+    <form th:action="@{/leagues/create}" th:object="${leagueDto}" method="post">
+        <input type="text" th:field="*{name}" placeholder="League Name" required>
+        <button type="submit">Create League</button>
+    </form>
+
+    <p><a th:href="@{/dashboard}">Back to Dashboard</a></p>
+</div>
+</body>
+</html>

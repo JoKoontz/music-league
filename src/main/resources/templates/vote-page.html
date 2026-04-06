@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vote</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Vote for a Song</h2>
+
+    <div class="card">
+        <p><strong>Round:</strong> <span th:text="${round.theme}">Round Theme</span></p>
+        <p><strong>Status:</strong> <span th:text="${round.status}">VOTING_OPEN</span></p>
+    </div>
+
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <form th:action="@{/votes/create/{roundId}(roundId=${round.id})}" th:object="${voteDto}" method="post">
+        <label for="submissionId">Choose a song</label>
+        <select id="submissionId" th:field="*{submissionId}" required>
+            <option value="">-- Select a submission --</option>
+            <option th:each="submission : ${submissions}"
+                    th:value="${submission.id}"
+                    th:text="${submission.songTitle + ' - ' + submission.artistName + ' (by ' + submission.user.username + ')'}">
+            </option>
+        </select>
+
+        <label for="pointsGiven">Points</label>
+        <input type="number" id="pointsGiven" th:field="*{pointsGiven}" min="1" max="10" required>
+
+        <button type="submit">Submit Vote</button>
+    </form>
+
+    <p><a th:href="@{/rounds/{id}(id=${round.id})}">Back to Round</a></p>
+</div>
+</body>
+</html>

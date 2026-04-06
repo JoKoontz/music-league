@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Round</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Create Round</h2>
+
+    <form th:action="@{/rounds/create/{leagueId}(leagueId=${leagueId})}" th:object="${roundDto}" method="post">
+        <input type="text" th:field="*{theme}" placeholder="Round Theme" required>
+
+        <label for="submissionDeadline">Submission Deadline</label>
+        <input type="datetime-local" id="submissionDeadline" th:field="*{submissionDeadline}" required>
+
+        <label for="votingDeadline">Voting Deadline</label>
+        <input type="datetime-local" id="votingDeadline" th:field="*{votingDeadline}" required>
+
+        <button type="submit">Create Round</button>
+    </form>
+
+    <p><a th:href="@{/dashboard}">Back to Dashboard</a></p>
+</div>
+</body>
+</html>

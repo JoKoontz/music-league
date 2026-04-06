@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Submit Song</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Submit a Song</h2>
+
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <form th:action="@{/submissions/create/{roundId}(roundId=${roundId})}" th:object="${submissionDto}" method="post">
+        <input type="text" th:field="*{songTitle}" placeholder="Song Title" required>
+        <input type="text" th:field="*{artistName}" placeholder="Artist Name" required>
+        <button type="submit">Submit Song</button>
+    </form>
+
+    <p><a th:href="@{/rounds/{id}(id=${roundId})}">Back to Round</a></p>
+</div>
+</body>
+</html>

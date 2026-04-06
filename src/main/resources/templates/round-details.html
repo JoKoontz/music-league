@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Round Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${round.theme}">Round Theme</h1>
+
+    <div class="card">
+        <p><strong>Status:</strong> <span th:text="${round.status}">SUBMISSION_OPEN</span></p>
+        <p><strong>Submission Deadline:</strong> <span th:text="${round.submissionDeadline}"></span></p>
+        <p><strong>Voting Deadline:</strong> <span th:text="${round.votingDeadline}"></span></p>
+    </div>
+
+    <div class="nav">
+        <a th:if="${round.status == 'SUBMISSION_OPEN'}"
+           th:href="@{/submissions/create/{roundId}(roundId=${round.id})}">
+            Submit Song
+        </a>
+
+        <a th:if="${round.status == 'VOTING_OPEN'}"
+           th:href="@{/votes/create/{roundId}(roundId=${round.id})}">
+            Vote
+        </a>
+
+        <a th:href="@{/leagues/{id}(id=${round.league.id})}">Back to League</a>
+    </div>
+
+    <h2>Submissions</h2>
+
+    <div th:if="${#lists.isEmpty(submissions)}" class="card">
+        <p>No submissions yet.</p>
+    </div>
+
+    <div th:each="submission : ${submissions}" class="card">
+        <p><strong>Song:</strong> <span th:text="${submission.songTitle}">Song Title</span></p>
+        <p><strong>Artist:</strong> <span th:text="${submission.artistName}">Artist Name</span></p>
+        <p><strong>Submitted By:</strong> <span th:text="${submission.user.username}">Username</span></p>
+    </div>
+</div>
+</body>
+</html>

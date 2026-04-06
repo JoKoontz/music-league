@@ -2,18 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="container">
     <h1>Dashboard</h1>
+    <p>Welcome to Music League.</p>
 
-    <p>You are logged in!</p>
+    <div class="nav">
+        <a th:href="@{/leagues/create}">Create League</a>
+        <a th:href="@{/leagues/join}">Join League</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
 
-    <a th:href="@{/leagues/create}">Create League</a><br>
-    <a th:href="@{/leagues/join}">Join League</a><br><br>
-
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+    <div class="card">
+        <h3>Getting Started</h3>
+        <p>Create a league or join one with an invite code.</p>
+    </div>
+</div>
 </body>
 </html>

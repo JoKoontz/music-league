@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Join League</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Join League</h2>
+
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+
+    <form th:action="@{/leagues/join}" method="post">
+        <input type="text" name="inviteCode" placeholder="Invite Code" required>
+        <button type="submit">Join</button>
+    </form>
+
+    <p><a th:href="@{/dashboard}">Back to Dashboard</a></p>
+</div>
+</body>
+</html>

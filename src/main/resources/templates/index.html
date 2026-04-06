@@ -2,14 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Music League</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-    <h1>Welcome to Music League!</h1>
+<div class="container">
+    <h1>Music League</h1>
+    <p>Welcome to the Music League app. Create leagues, submit songs, and vote on tracks.</p>
 
-    <p>Start by logging in or creating an account.</p>
-
-    <a th:href="@{/login}">Login</a> |
-    <a th:href="@{/register}">Register</a>
+    <div class="nav">
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+    </div>
+</div>
 </body>
 </html>
