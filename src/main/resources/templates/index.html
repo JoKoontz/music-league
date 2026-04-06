@@ -7,11 +7,20 @@
 <body>
 <div class="container">
     <h1>Music League</h1>
-    <p>Welcome to the Music League app. Create leagues, submit songs, and vote on tracks.</p>
+    <p>Welcome to the Music League app. Create leagues, submit songs, vote on tracks, or try a bonus game mode.</p>
 
     <div class="nav">
         <a th:href="@{/login}">Login</a>
         <a th:href="@{/register}">Register</a>
+        <a th:href="@{/guess-game}">Guess The Song</a>
+    </div>
+
+    <div class="card">
+        <h3>Bonus Mode</h3>
+        <p>Try the Guess The Song mini-game from the homepage.</p>
+        <a th:href="@{/guess-game}">
+            <button type="button">Play Guess The Song</button>
+        </a>
     </div>
 </div>
 </body>

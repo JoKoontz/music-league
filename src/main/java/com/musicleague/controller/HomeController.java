@@ -15,4 +15,9 @@ public class HomeController {
     public String dashboard() {
         return "dashboard";
     }
+
+    @GetMapping("/guess-game")
+    public String guessGame() {
+        return "guess-game";
+    }
 }

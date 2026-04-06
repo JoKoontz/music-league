@@ -9,7 +9,7 @@ const correctAnswer = "boom";
 function startGame() {
     document.getElementById("playButton").style.display = "none";
     document.getElementById("guessSection").style.display = "block";
-    document.getElementById("statusMessage").textContent = "🎵 Listen and guess the song!";
+    document.getElementById("statusMessage").textContent = "Listen and guess the song!";
 
     const feedback = document.getElementById("feedback");
     feedback.style.display = "none";
@@ -63,7 +63,7 @@ function submitGuess() {
         endGame(true);
     } else {
         const feedback = document.getElementById("feedback");
-        feedback.textContent = "❌ Incorrect! Try again!";
+        feedback.textContent = "Incorrect! Try again!";
         feedback.className = "feedback incorrect";
 
         document.getElementById("guessInput").value = "";
@@ -81,13 +81,13 @@ function endGame(won) {
         const pointsEarned = timerValue;
         currentScore += pointsEarned;
 
-        feedback.textContent = `✅ Correct! You earned ${pointsEarned} points!`;
+        feedback.textContent = `Correct! You earned ${pointsEarned} points!`;
         feedback.className = "feedback correct";
 
         document.getElementById("yourScore").textContent = currentScore + " pts";
-        document.getElementById("statusMessage").textContent = "🎉 Great job! The song was: " + correctAnswer;
+        document.getElementById("statusMessage").textContent = "Great job! The song was: " + correctAnswer;
     } else {
-        feedback.textContent = "⏰ Time's up! The song was: " + correctAnswer;
+        feedback.textContent = "Time's up! The song was: " + correctAnswer;
         feedback.className = "feedback incorrect";
 
         document.getElementById("statusMessage").textContent = "Better luck next time!";
