@@ -5,6 +5,17 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<nav class="navbar">
+    <a class="navbar-logo" th:href="@{/}">Music League</a>
+
+    <div class="navbar-links">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/dashboard}">Dashboard</a>
+        <a th:href="@{/guess-song}">Guess The Song</a>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
+    </div>
+</nav>
 <div class="container">
     <h1>Music League</h1>
     <p>Welcome to the Music League app. Create leagues, submit songs, vote on tracks, or try a bonus game mode.</p>
