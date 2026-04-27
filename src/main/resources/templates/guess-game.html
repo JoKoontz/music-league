@@ -5,15 +5,167 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music League - Guess The Song</title>
 
-    <!-- Global styles (navbar, layout) -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <!-- Page-specific styles -->
-    <link rel="stylesheet" th:href="@{/css/guess-song.css}">
-</head>
-<body>
+    <style>
+        body {
+            background: linear-gradient(135deg, #020024 0%, #4c1d95 50%, #2563eb 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
 
-<!-- NAVBAR -->
+        .game-container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 650px;
+            width: 90%;
+            margin: 60px auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .game-container h1 {
+            color: #4c1d95;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .status-message {
+            text-align: center;
+            font-size: 18px;
+            color: #374151;
+            margin-bottom: 30px;
+        }
+
+        .timer-container {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            border-left: 6px solid #4c1d95;
+        }
+
+        .timer {
+            font-size: 52px;
+            font-weight: bold;
+            color: #4c1d95;
+            margin-bottom: 10px;
+        }
+
+        .points-display {
+            font-size: 22px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .audio-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .play-button {
+            background: #4c1d95;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .play-button:hover {
+            background: #2563eb;
+        }
+
+        .guess-section {
+            margin-bottom: 30px;
+        }
+
+        .guess-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background: #15803d;
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #dcfce7;
+            color: #166534;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+
+        .leaderboard {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .leaderboard h2 {
+            color: #111827;
+            text-align: center;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: #f8fafc;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .leaderboard-item.first {
+            background: #facc15;
+            font-weight: bold;
+        }
+
+        .leaderboard-item.second {
+            background: #d1d5db;
+        }
+
+        .leaderboard-item.third {
+            background: #d97706;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
 <nav class="navbar">
     <a class="navbar-logo" th:href="@{/}">Music League</a>
 
@@ -26,32 +178,24 @@
     </div>
 </nav>
 
-<!-- MAIN CONTENT -->
 <div class="game-container">
-
-    <h1>🎵 Guess The Song</h1>
+    <h1>🎵 Music League - Guess The Song</h1>
 
     <div class="status-message" id="statusMessage">
         Press "Ready to Play" to start!
     </div>
 
-    <!-- TIMER -->
     <div class="timer-container">
         <div class="timer" id="timer">100</div>
         <div class="points-display">Points Available</div>
     </div>
 
-    <!-- START BUTTON -->
     <div class="audio-section">
-        <button class="play-button" id="playButton" onclick="startGame()">
-            Ready to Play
-        </button>
+        <button class="play-button" id="playButton" onclick="startGame()">Ready to Play</button>
     </div>
 
-    <!-- FEEDBACK -->
     <div class="feedback" id="feedback"></div>
 
-    <!-- GUESS INPUT -->
     <div class="guess-section" id="guessSection" style="display: none;">
         <input
             type="text"
@@ -60,14 +204,11 @@
             placeholder="Type the song name here..."
             onkeypress="if(event.key==='Enter') submitGuess()"
         >
-        <button class="submit-button" onclick="submitGuess()">
-            Submit Guess
-        </button>
+        <button class="submit-button" onclick="submitGuess()">Submit Guess</button>
     </div>
 
-    <!-- LEADERBOARD -->
     <div class="leaderboard">
-        <h2>🏆 Leaderboard</h2>
+        <h2>🏆 Current Leaderboard</h2>
 
         <div class="leaderboard-item first">
             <span>1. Player1</span>
@@ -94,11 +235,103 @@
             <span>150 pts</span>
         </div>
     </div>
-
 </div>
 
-<!-- JS -->
-<script th:src="@{/js/guess-song.js}"></script>
+<script>
+    let timerValue = 100;
+    let timerInterval = null;
+    let isPlaying = false;
+    let currentScore = 0;
 
+    const correctAnswer = "boom";
+
+    function startGame() {
+        document.getElementById('playButton').style.display = 'none';
+        document.getElementById('guessSection').style.display = 'block';
+        document.getElementById('statusMessage').textContent = '🎵 Listen and guess the song!';
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('feedback').className = 'feedback';
+
+        timerValue = 100;
+        document.getElementById('timer').textContent = timerValue;
+
+        isPlaying = true;
+        timerInterval = setInterval(updateTimer, 300);
+
+        document.getElementById('guessInput').focus();
+    }
+
+    function updateTimer() {
+        if (timerValue > 0 && isPlaying) {
+            timerValue--;
+            document.getElementById('timer').textContent = timerValue;
+
+            const timerElement = document.getElementById('timer');
+
+            if (timerValue < 30) {
+                timerElement.style.color = '#dc2626';
+            } else if (timerValue < 60) {
+                timerElement.style.color = '#f59e0b';
+            } else {
+                timerElement.style.color = '#4c1d95';
+            }
+        } else if (timerValue === 0) {
+            endGame(false);
+        }
+    }
+
+    function submitGuess() {
+        if (!isPlaying) return;
+
+        const guess = document.getElementById('guessInput').value.trim();
+
+        if (guess === '') {
+            alert('Please enter a song name!');
+            return;
+        }
+
+        const isCorrect = guess.toLowerCase() === correctAnswer.toLowerCase();
+
+        if (isCorrect) {
+            endGame(true);
+        } else {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = 'Incorrect! Try again!';
+            feedback.className = 'feedback incorrect';
+
+            document.getElementById('guessInput').value = '';
+            document.getElementById('guessInput').focus();
+        }
+    }
+
+    function endGame(won) {
+        isPlaying = false;
+        clearInterval(timerInterval);
+
+        const feedback = document.getElementById('feedback');
+
+        if (won) {
+            const pointsEarned = timerValue;
+            currentScore += pointsEarned;
+
+            feedback.textContent = `Correct! You earned ${pointsEarned} points!`;
+            feedback.className = 'feedback correct';
+
+            document.getElementById('yourScore').textContent = currentScore + ' pts';
+            document.getElementById('statusMessage').textContent = 'Great job! The song was: ' + correctAnswer;
+        } else {
+            feedback.textContent = 'Time is up! The song was: ' + correctAnswer;
+            feedback.className = 'feedback incorrect';
+
+            document.getElementById('statusMessage').textContent = 'Better luck next time!';
+        }
+
+        document.getElementById('guessSection').style.display = 'none';
+
+        const playButton = document.getElementById('playButton');
+        playButton.style.display = 'block';
+        playButton.textContent = 'Play Again';
+    }
+</script>
 </body>
 </html>
