@@ -1,25 +1,22 @@
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #020024 0%, #9F52B2 100%);
+    background: linear-gradient(135deg, #020024 0%, #4c1d95 50%, #2563eb 100%);
     margin: 0;
-    padding: 20px;
+    padding: 0;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .game-container {
-    background: #E7F0B1;
+    background: #ffffff;
     border-radius: 20px;
     padding: 40px;
-    max-width: 600px;
-    width: 100%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 650px;
+    width: 90%;
+    margin: 60px auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
-h1 {
-    color: #667eea;
+.game-container h1 {
+    color: #4c1d95;
     text-align: center;
     margin-top: 0;
 }
@@ -27,28 +24,30 @@ h1 {
 .status-message {
     text-align: center;
     font-size: 18px;
-    color: #746;
+    color: #374151;
     margin-bottom: 30px;
 }
 
 .timer-container {
-    background: #f0f0f0;
+    background: #f8fafc;
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 30px;
     text-align: center;
+    border-left: 6px solid #4c1d95;
 }
 
 .timer {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: bold;
-    color: #667eea;
+    color: #4c1d95;
     margin-bottom: 10px;
 }
 
 .points-display {
-    font-size: 24px;
-    color: #764ba2;
+    font-size: 22px;
+    color: #2563eb;
+    font-weight: bold;
 }
 
 .audio-section {
@@ -57,25 +56,19 @@ h1 {
 }
 
 .play-button {
-    background: #667eea;
+    background: #4c1d95;
     color: white;
     border: none;
     padding: 15px 40px;
     font-size: 18px;
     border-radius: 30px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: 0.2s ease;
 }
 
 .play-button:hover {
-    background: #764ba2;
-    transform: scale(1.05);
-}
-
-.play-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: scale(1);
+    background: #2563eb;
+    transform: translateY(-2px);
 }
 
 .guess-section {
@@ -86,36 +79,30 @@ h1 {
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    border: 2px solid #ddd;
+    border: 1px solid #cbd5e1;
     border-radius: 10px;
-    box-sizing: border-box;
     margin-bottom: 15px;
 }
 
 .guess-input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #4c1d95;
+    box-shadow: 0 0 0 3px rgba(76, 29, 149, 0.15);
 }
 
 .submit-button {
     width: 100%;
-    background: #28a745;
+    background: #16a34a;
     color: white;
     border: none;
     padding: 15px;
     font-size: 18px;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s;
 }
 
 .submit-button:hover {
-    background: #218838;
-}
-
-.submit-button:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+    background: #15803d;
 }
 
 .feedback {
@@ -129,25 +116,25 @@ h1 {
 }
 
 .feedback.correct {
-    background: #d4edda;
-    color: #155724;
+    background: #dcfce7;
+    color: #166534;
     display: block;
 }
 
 .feedback.incorrect {
-    background: #f8d7da;
-    color: #721c24;
+    background: #fee2e2;
+    color: #991b1b;
     display: block;
 }
 
 .leaderboard {
     margin-top: 30px;
     padding-top: 30px;
-    border-top: 2px solid #eee;
+    border-top: 2px solid #e5e7eb;
 }
 
 .leaderboard h2 {
-    color: #020024;
+    color: #111827;
     text-align: center;
 }
 
@@ -155,20 +142,21 @@ h1 {
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    background: #f8f9fa;
+    background: #f8fafc;
     margin-bottom: 10px;
     border-radius: 10px;
 }
 
 .leaderboard-item.first {
-    background: #ffd700;
+    background: #facc15;
     font-weight: bold;
 }
 
 .leaderboard-item.second {
-    background: #c0c0c0;
+    background: #d1d5db;
 }
 
 .leaderboard-item.third {
-    background: #cd7f32;
+    background: #d97706;
+    color: white;
 }
