@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music League - Deezer Edition | Pop Hits</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 28px;
+            padding: 35px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f64f59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            font-size: 2.2em;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #f64f59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .round-option {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 12px 0;
+            cursor: pointer;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .round-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #764ba2 0%, #f64f59 100%);
+        }
+
+        .timer {
+            font-size: 52px;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #f64f59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        #timeRemaining {
+            text-align: center;
+            font-size: 16px;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #764ba2, #f64f59);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 40px;
+            margin: 10px 0;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: #FAFAFA;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 8px rgba(102,126,234,0.3);
+            background: white;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, #f5f0ff, #ffe0e6);
+            padding: 18px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: center;
+            border: 1px solid #e0d4ff;
+        }
+
+        .score-board span {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #f64f59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .audio-player {
+            background: linear-gradient(135deg, #f5f0ff, #ffe0e6);
+            padding: 20px;
+            border-radius: 25px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #e0d4ff;
+        }
+
+        .audio-player button {
+            width: auto;
+            padding: 10px 25px;
+            margin: 0 8px;
+            display: inline-block;
+        }
+
+        .replay-btn {
+            background: linear-gradient(135deg, #f64f59, #ff8c42);
+        }
+
+        .replay-btn:hover {
+            background: linear-gradient(135deg, #ff6b6b, #ffa05e);
+        }
+
+        .replay-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .feedback {
+            display: none;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct {
+            background: linear-gradient(135deg, #d4fcda, #c8e6d9);
+            color: #2e7d64;
+            border: 1px solid #4caf9e;
+        }
+
+        .incorrect {
+            background: linear-gradient(135deg, #ffe0e0, #ffd4d4);
+            color: #c62828;
+            border: 1px solid #ef5350;
+        }
+
+        #roundCounter {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+
+        #statusMessage {
+            text-align: center;
+            font-size: 16px;
+            margin: 15px 0;
+            color: #764ba2;
+            font-weight: 500;
+        }
+
+        #artistName {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #f64f59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .preview-status {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 8px;
+            color: #764ba2;
+        }
+
+        h2 {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea, #f64f59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .round-complete {
+            background: linear-gradient(135deg, #f5f0ff, #ffe0e6);
+            border: 2px solid #764ba2;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .next-round-btn {
+            background: linear-gradient(135deg, #764ba2, #f64f59);
+        }
+
+        .next-round-btn:hover {
+            background: linear-gradient(135deg, #8b5cc9, #ff6b6b);
+        }
+
+        .auto-play-note {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="game-container">
+    <div class="icon">🎵 🌟 💜</div>
+    <h1>Music League</h1>
+    <div class="subtitle">🎵 Pop Hits Edition - Guess the Song! 🎵</div>
+
+    <!-- ROUND SELECT -->
+    <div id="roundSelection">
+        <h2>Select Number of Rounds</h2>
+        <div class="round-option" onclick="selectRounds(3)">🎯 3 Rounds</div>
+        <div class="round-option" onclick="selectRounds(5)">🎯 5 Rounds</div>
+        <div class="round-option" onclick="selectRounds(10)">🎯 10 Rounds</div>
+    </div>
+
+    <!-- GAME -->
+    <div id="gameScreen" class="hidden">
+        <div id="roundCounter"></div>
+        <div id="statusMessage"></div>
+        <div id="artistName"></div>
+        
+        <div class="audio-player">
+            <button id="replayButton" class="replay-btn" onclick="replayAudio()" disabled>🔄 Replay Preview</button>
+        </div>
+        <div class="preview-status" id="previewStatus">🎵 Click Start Round to begin!</div>
+        <div class="auto-play-note">💡 Preview plays automatically when round starts</div>
+
+        <div class="timer" id="timer">100</div>
+        <div id="timeRemaining">⏱️ Time remaining: 30 seconds</div>
+
+        <button id="startButton" onclick="startRoundUI()">🎵 Start Round 🎵</button>
+
+        <div id="guessSection" class="hidden">
+            <input id="guessInput" type="text" placeholder="🎵 Enter song name here... 🎵" onkeypress="if(event.key==='Enter') submitGuess()">
+            <button onclick="submitGuess()">🎵 Submit Guess 🎵</button>
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+        
+        <!-- Round Complete Section -->
+        <div id="roundCompleteSection" class="round-complete hidden">
+            <div id="roundCompleteMessage"></div>
+            <button id="nextRoundButton" class="next-round-btn" onclick="goToNextRound()">🎵 Next Round 🎵</button>
+        </div>
+
+        <div class="score-board">
+            🏆 Score: <span id="yourScore">0</span> &nbsp;|&nbsp; 
+            ✅ Correct: <span id="correctCount">0</span>
+        </div>
+    </div>
+
+    <!-- END -->
+    <div id="celebrationScreen" class="hidden">
+        <div class="icon">🏆 🎉 🌟</div>
+        <h2>Game Over!</h2>
+        <div class="score-board">
+            🏆 Final Score: <span id="finalScore"></span><br>
+            🎯 Correct Guesses: <span id="finalCorrect"></span>
+        </div>
+        <button onclick="resetGame()">🎵 Play Again 🎵</button>
+    </div>
+</div>
+
+<script>
+// ✅ Backend connection
+const API_BASE_URL = 'http://localhost:8081/api/deezer';
+
+// Expanded artist list for maximum variety
+const ARTIST_CATEGORIES = [
+    "Taylor Swift", "Ed Sheeran", "Adele", "Bruno Mars", "Katy Perry",
+    "Lady Gaga", "Rihanna", "Justin Bieber", "Ariana Grande", "The Weeknd",
+    "Drake", "Eminem", "Coldplay", "Imagine Dragons", "Maroon 5",
+    "Beyonce", "Shakira", "Bad Bunny", "Dua Lipa", "Post Malone",
+    "Billie Eilish", "Harry Styles", "Olivia Rodrigo", "Doja Cat", "Lil Nas X",
+    "Khalid", "SZA", "Halsey", "Shawn Mendes", "Camila Cabello",
+    "Sam Smith", "Lewis Capaldi", "Miley Cyrus", "Pink", "Kelly Clarkson"
+];
+
+// Track used artists to ensure variety
+let usedArtists = [];
+let currentArtist = "";
+
+// STATE
+let sessionCode = '';
+let currentRound = 1;
+let totalRounds = 5;
+let timerValue = 100;
+let timeRemaining = 30;
+let roundActive = false;
+let roundCompleted = false;
+let score = 0;
+let correctCount = 0;
+let pointsInterval, timeInterval;
+let currentAudio = null;
+let currentPreviewUrl = null;
+let currentArtistName = '';
+let currentSongName = '';
+
+console.log("🎮 Frontend loaded!");
+console.log("📡 Backend URL:", API_BASE_URL);
+
+// Test backend connection on load
+async function testBackendConnection() {
+    try {
+        const response = await fetch(API_BASE_URL + '/test');
+        const data = await response.json();
+        console.log("✅ Backend connected:", data);
+    } catch (error) {
+        console.error("❌ Backend connection failed:", error);
+        alert("⚠️ Cannot connect to backend!\n\nMake sure the Deezer Edition is running on port 8081");
+    }
+}
+
+testBackendConnection();
+
+function selectRounds(r) {
+    totalRounds = r;
+    currentRound = 1;
+    score = 0;
+    correctCount = 0;
+    roundCompleted = false;
+    usedArtists = [];
+    
+    document.getElementById('roundSelection').classList.add('hidden');
+    document.getElementById('gameScreen').classList.remove('hidden');
+    document.getElementById('yourScore').textContent = score;
+    document.getElementById('correctCount').textContent = correctCount;
+    
+    updateRound();
+    startGame();
+}
+
+function updateRound() {
+    document.getElementById('roundCounter').innerHTML = `✨ Round ${currentRound} / ${totalRounds} ✨`;
+}
+
+async function startGame() {
+    if (roundActive) return;
+    
+    try {
+        let endpoint = sessionCode === '' ? '/start' : '/next-round';
+        let body = sessionCode === '' ? 
+            { playerName: "Player", totalRounds: totalRounds } : 
+            { sessionCode: sessionCode };
+
+        console.log("📡 Sending request to:", API_BASE_URL + endpoint);
+        
+        const res = await fetch(API_BASE_URL + endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+        console.log("📥 Response:", data);
+
+        if (data.gameComplete) {
+            showEnd();
+            return;
+        }
+
+        sessionCode = data.sessionCode;
+        currentSongName = data.currentSongName || "Unknown";
+        currentArtistName = data.artistName;
+        
+        document.getElementById('statusMessage').innerHTML = "🎧 Get ready to guess! 🎧";
+        document.getElementById('artistName').innerHTML = `🎤 Artist: ${data.artistName} 🎤`;
+        
+        currentPreviewUrl = data.previewUrl;
+        
+        if (currentPreviewUrl && currentPreviewUrl !== 'null') {
+            document.getElementById('previewStatus').innerHTML = '✅ Preview ready! Click Start Round';
+            document.getElementById('previewStatus').style.color = '#764ba2';
+        } else {
+            document.getElementById('previewStatus').innerHTML = '⚠️ Loading preview...';
+        }
+        
+        document.getElementById('startButton').classList.remove('hidden');
+        document.getElementById('guessSection').classList.add('hidden');
+        document.getElementById('roundCompleteSection').classList.add('hidden');
+        document.getElementById('feedback').style.display = 'none';
+        
+        // Disable replay button until round starts
+        const replayBtn = document.getElementById('replayButton');
+        replayBtn.disabled = true;
+        
+        timerValue = 100;
+        timeRemaining = 30;
+        document.getElementById('timer').textContent = timerValue;
+        document.getElementById('timeRemaining').innerHTML = `⏱️ Time remaining: ${timeRemaining} seconds`;
+        
+        roundActive = false;
+        roundCompleted = false;
+        
+    } catch (e) {
+        console.error("❌ Error:", e);
+        alert("❌ Error connecting to backend!\n\nMake sure the Deezer Edition is running on port 8081\n\n" + e.message);
+    }
+}
+
+function replayAudio() {
+    if (!roundActive || roundCompleted) return;
+    
+    if (!currentPreviewUrl || currentPreviewUrl === 'null') {
+        document.getElementById('previewStatus').innerHTML = '⚠️ No preview available';
+        return;
+    }
+    
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio.play().catch(err => console.error("Replay error:", err));
+    }
+}
+
+function stopAudio() {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+}
+
+function startRoundUI() {
+    if (roundActive || roundCompleted) return;
+    
+    roundActive = true;
+    roundCompleted = false;
+    
+    document.getElementById('startButton').classList.add('hidden');
+    document.getElementById('guessSection').classList.remove('hidden');
+    document.getElementById('roundCompleteSection').classList.add('hidden');
+    document.getElementById('guessInput').value = '';
+    document.getElementById('guessInput').focus();
+    document.getElementById('feedback').style.display = 'none';
+    
+    // Enable replay button
+    const replayBtn = document.getElementById('replayButton');
+    replayBtn.disabled = false;
+    
+    timerValue = 100;
+    timeRemaining = 30;
+    document.getElementById('timer').textContent = timerValue;
+    document.getElementById('timeRemaining').innerHTML = `⏱️ Time remaining: ${timeRemaining} seconds`;
+    
+    // Auto-play preview when round starts
+    if (currentPreviewUrl && currentPreviewUrl !== 'null') {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        currentAudio = new Audio(currentPreviewUrl);
+        currentAudio.play().catch(err => {
+            console.error("Auto-play error:", err);
+            document.getElementById('previewStatus').innerHTML = '⚠️ Click replay to hear preview';
+        });
+        
+        currentAudio.onplaying = () => {
+            document.getElementById('previewStatus').innerHTML = '🎵 Now playing! Click replay to listen again 🎵';
+            document.getElementById('previewStatus').style.color = '#667eea';
+        };
+        
+        currentAudio.onended = () => {
+            document.getElementById('previewStatus').innerHTML = '✅ Preview ended. Click replay to hear again';
+            document.getElementById('previewStatus').style.color = '#764ba2';
+        };
+    }
+    
+    pointsInterval = setInterval(() => {
+        if (roundActive && !roundCompleted && timerValue > 0) {
+            timerValue--;
+            document.getElementById('timer').textContent = timerValue;
+        }
+    }, 300);
+    
+    timeInterval = setInterval(() => {
+        if (roundActive && !roundCompleted && timeRemaining > 0) {
+            timeRemaining--;
+            document.getElementById('timeRemaining').innerHTML = `⏱️ Time remaining: ${timeRemaining} seconds`;
+            if (timeRemaining <= 0) {
+                endRound(false, "⏰ Time's up!");
+            }
+        }
+    }, 1000);
+}
+
+async function submitGuess() {
+    if (!roundActive || roundCompleted) return;
+    
+    const guess = document.getElementById('guessInput').value.trim();
+    if (!guess) {
+        showFeedback("Please enter a song name!", false);
+        return;
+    }
+
+    try {
+        const res = await fetch(API_BASE_URL + '/guess', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionCode, guess, points: timerValue })
+        });
+
+        const result = await res.json();
+        
+        if (result.correct) {
+            const pointsEarned = (timeRemaining > 0) ? timerValue : 0;
+            score += pointsEarned;
+            correctCount++;
+            document.getElementById('yourScore').textContent = score;
+            document.getElementById('correctCount').textContent = correctCount;
+            
+            endRound(true, `✅ Correct! +${pointsEarned} points!`);
+        } else {
+            showFeedback(`❌ Wrong! Try again!`, false);
+            document.getElementById('guessInput').value = '';
+            document.getElementById('guessInput').focus();
+        }
+    } catch (e) {
+        console.error("Submit error:", e);
+        showFeedback("Error submitting guess. Try again!", false);
+    }
+}
+
+function endRound(win, message) {
+    if (!roundActive || roundCompleted) return;
+    
+    roundActive = false;
+    roundCompleted = true;
+    
+    clearInterval(pointsInterval);
+    clearInterval(timeInterval);
+    stopAudio();
+    
+    // Disable replay button when round ends
+    const replayBtn = document.getElementById('replayButton');
+    replayBtn.disabled = true;
+    
+    const roundCompleteDiv = document.getElementById('roundCompleteSection');
+    const roundCompleteMessage = document.getElementById('roundCompleteMessage');
+    
+    if (win) {
+        roundCompleteMessage.innerHTML = `🎉 ${message} 🎉<br>Click Next Round to continue!`;
+    } else if (timeRemaining <= 0) {
+        roundCompleteMessage.innerHTML = `⏰ Time's up! The song was "${currentSongName}"<br>Click Next Round to continue!`;
+    } else {
+        roundCompleteMessage.innerHTML = `${message}<br>Click Next Round to continue!`;
+    }
+    
+    roundCompleteDiv.classList.remove('hidden');
+    document.getElementById('guessSection').classList.add('hidden');
+    document.getElementById('feedback').style.display = 'none';
+}
+
+async function goToNextRound() {
+    if (roundCompleted) {
+        if (currentRound >= totalRounds) {
+            showEnd();
+        } else {
+            currentRound++;
+            updateRound();
+            
+            roundActive = false;
+            roundCompleted = false;
+            
+            document.getElementById('roundCompleteSection').classList.add('hidden');
+            await startGame();
+        }
+    }
+}
+
+function showFeedback(msg, isCorrect) {
+    const f = document.getElementById('feedback');
+    f.innerHTML = msg;
+    f.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+    f.style.display = 'block';
+    
+    if (!isCorrect) {
+        setTimeout(() => {
+            if (f.style.display === 'block') f.style.display = 'none';
+        }, 2000);
+    }
+}
+
+function showEnd() {
+    document.getElementById('gameScreen').classList.add('hidden');
+    document.getElementById('celebrationScreen').classList.remove('hidden');
+    document.getElementById('finalScore').textContent = score;
+    document.getElementById('finalCorrect').innerHTML = `${correctCount} / ${totalRounds}`;
+    stopAudio();
+}
+
+function resetGame() {
+    sessionCode = '';
+    currentRound = 1;
+    score = 0;
+    correctCount = 0;
+    roundActive = false;
+    roundCompleted = false;
+    usedArtists = [];
+    if (pointsInterval) clearInterval(pointsInterval);
+    if (timeInterval) clearInterval(timeInterval);
+    stopAudio();
+    document.getElementById('celebrationScreen').classList.add('hidden');
+    document.getElementById('gameScreen').classList.add('hidden');
+    document.getElementById('roundSelection').classList.remove('hidden');
+}
+</script>
+</body>
+</html>

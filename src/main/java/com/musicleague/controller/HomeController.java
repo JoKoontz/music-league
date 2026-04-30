@@ -15,9 +15,21 @@ public class HomeController {
     public String dashboard() {
         return "dashboard";
     }
+    
+    @GetMapping("/guess-game")
+    public String guessGame() {
+        return "deezer-game";
+    }
 
+    /*
     @GetMapping("/guess-game")
     public String guessGame() {
         return "guess-game";
-    }
+    } */
+   
+    /*
+    @GetMapping("/deezer-game")
+    public String deezerGame() {
+        return "deezer-game"; 
+    } */
 }
