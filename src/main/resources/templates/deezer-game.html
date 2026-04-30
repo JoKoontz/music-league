@@ -357,8 +357,8 @@
 </div>
 
 <script>
-// ✅ Backend connection
-const API_BASE_URL = 'http://localhost:8081/api/deezer';
+// Backend connection
+const API_BASE_URL = '/api/deezer';
 
 // Expanded artist list for maximum variety
 const ARTIST_CATEGORIES = [
@@ -391,18 +391,18 @@ let currentPreviewUrl = null;
 let currentArtistName = '';
 let currentSongName = '';
 
-console.log("🎮 Frontend loaded!");
-console.log("📡 Backend URL:", API_BASE_URL);
+console.log("Frontend loaded!");
+console.log("Backend URL:", API_BASE_URL);
 
 // Test backend connection on load
 async function testBackendConnection() {
     try {
         const response = await fetch(API_BASE_URL + '/test');
         const data = await response.json();
-        console.log("✅ Backend connected:", data);
+        console.log("Backend connected:", data);
     } catch (error) {
-        console.error("❌ Backend connection failed:", error);
-        alert("⚠️ Cannot connect to backend!\n\nMake sure the Deezer Edition is running on port 8081");
+        console.error("Backend connection failed:", error);
+        alert("Cannot connect to the backend. Please check the server logs.");
     }
 }
 
@@ -493,7 +493,7 @@ async function startGame() {
         
     } catch (e) {
         console.error("❌ Error:", e);
-        alert("❌ Error connecting to backend!\n\nMake sure the Deezer Edition is running on port 8081\n\n" + e.message);
+        alert("Error connecting to backend: " + e.message); 
     }
 }
 
