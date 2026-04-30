@@ -1,7 +1,7 @@
 package com.musicleague.controller;
 
-import com.musicleague.deezer.model.GameSession;
-import com.musicleague.deezer.service.GameService;
+import com.musicleague.model.GameSession;
+import com.musicleague.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
