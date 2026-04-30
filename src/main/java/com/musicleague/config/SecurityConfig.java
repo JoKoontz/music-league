@@ -11,16 +11,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/deezer/**")
-            )
+            // Allows JavaScript POST requests to /api/deezer/start, /guess, /next-round
+            .csrf(csrf -> csrf.disable())
+
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/",
                     "/login",
                     "/register",
+                    "/dashboard",
                     "/guess-song",
                     "/guess-game",
+                    "/deezer-game",
                     "/css/**",
                     "/js/**",
                     "/images/**",
@@ -28,11 +30,13 @@ public class SecurityConfig {
                 ).permitAll()
                 .anyRequest().authenticated()
             )
+
             .formLogin(form -> form
                 .loginPage("/login")
                 .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
             )
+
             .logout(logout -> logout
                 .logoutSuccessUrl("/")
                 .permitAll()
